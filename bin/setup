@@ -1,0 +1,44 @@
+#!/bin/bash -eu
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+function install_fabric() {
+    mkdir -p $OPENSHIFT_FUSE_REGISTRY_DIR
+    cd $OPENSHIFT_FUSE_REGISTRY_DIR
+    curl --write-out %{http_code} --silent --output fuse-fabric-7.2.0.redhat-024.zip http://repo1.maven.org/maven2/org/fusesource/fabric/fuse-fabric/7.2.0.redhat-024/fuse-fabric-7.2.0.redhat-024.zip
+    unzip fuse-fabric-7.2.0.redhat-024.zip
+    ln -s fuse-fabric-7.2.0.redhat-024 container
+}
+
+case "$1" in
+  -v|--version)
+    version="$2"
+esac
+
+echo "$version" > "$OPENSHIFT_FUSE_REGISTRY_DIR/env/OPENSHIFT_FUSE_REGISTRY_VERSION"
+#Download and extract the Fuse Fabric Distribution
+install_fabric
+
+# generate password and setup env vars
+echo 'Generating username and password'
+password=$(generate_password)
+
+# Copy the version specific files into diy directory
+shopt -s dotglob
+cd $OPENSHIFT_FUSE_REGISTRY_DIR
+erb $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/org.apache.karaf.management.cfg.erb > container/etc/org.apache.karaf.management.cfg
+erb $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/org.apache.karaf.shell.cfg.erb > container/etc/org.apache.karaf.shell.cfg
+erb $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/org.ops4j.pax.web.cfg.erb > container/etc/org.ops4j.pax.web.cfg
+erb $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/jetty.xml.erb > container/etc/jetty.xml
+erb $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/system.properties.erb > container/etc/system.properties
+cp $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/org.apache.karaf.features.cfg  container/etc/
+cp -r $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/bin/* container/bin/
+cp -r $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/template/* $OPENSHIFT_FUSE_REGISTRY_DIR/template
+echo "admin=$password,admin" > container/etc/users.properties
+
+
+add_env_var "OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}"
+add_env_var "OPENSHIFT_FUSE_REGISTRY_PASSWORD=$password"
+add_env_var "OPENSHIFT_FUSE_REGISTRY_MAVEN_UPLOAD_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_HTTP_PORT}/maven/upload/"
+
+echo "$password" > container/etc/passwd
