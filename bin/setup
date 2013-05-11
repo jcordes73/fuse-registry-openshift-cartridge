@@ -31,14 +31,24 @@ erb $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/org.apache.karaf.shell.cf
 erb $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/org.ops4j.pax.web.cfg.erb > container/etc/org.ops4j.pax.web.cfg
 erb $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/jetty.xml.erb > container/etc/jetty.xml
 erb $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/system.properties.erb > container/etc/system.properties
-cp $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/etc/org.apache.karaf.features.cfg  container/etc/
 cp -r $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/bin/* container/bin/
 cp -r $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/template/* $OPENSHIFT_FUSE_REGISTRY_DIR/template
 echo "admin=$password,admin" > container/etc/users.properties
+echo "zookeeper.password=$password" >> container/etc/system.properties
 
 
-add_env_var "OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}"
-add_env_var "OPENSHIFT_FUSE_REGISTRY_PASSWORD=$password"
-add_env_var "OPENSHIFT_FUSE_REGISTRY_MAVEN_UPLOAD_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_HTTP_PORT}/maven/upload/"
+add_env_var "ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}"
+add_env_var "REGISTRY_PASSWORD=$password"
+add_env_var "MAVEN_UPLOAD_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_HTTP_PORT}/maven/upload/"
 
 echo "$password" > container/etc/passwd
+
+
+client_result ""
+client_result "Fuse Registry created successfully.  Please make note of these credentials:"
+client_result ""
+client_result "   User: admin"
+client_result "   Password: $password"
+client_result "   Zookeeper URL: ${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}"
+client_result "   Zookeeper Password: $password"
+client_result ""

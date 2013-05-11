@@ -21,13 +21,13 @@ Cart-Data:
   - Key: OPENSHIFT_FUSE_REGISTRY_LOG_DIR
     Type: environment
     Description: "Directory to store application log files."
-  - Key: OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_URL
+  - Key: ZOOKEEPER_URL
     Type: environment
     Description: "The url to zookeeper."
-  - Key: OPENSHIFT_FUSE_REGISTRY_PASSWORD
+  - Key: REGISTRY_PASSWORD
     Type: environment
     Description: "The registry password."
-  - Key: OPENSHIFT_FUSE_REGISTRY_MAVEN_UPLOAD_URL
+  - Key: MAVEN_UPLOAD_URL
     Type: environment
     Description: "The url to the fabric maven proxy."
   - Key: OPENSHIFT_TMP_DIR
