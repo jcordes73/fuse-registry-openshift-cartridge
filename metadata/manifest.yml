@@ -78,14 +78,14 @@ Endpoints:
         Backend:       ""
   - Private-IP-Name:   IP
     Private-Port-Name: SSH_PORT
-    Private-Port:      8101
+    Private-Port:      23101
   - Private-IP-Name:   IP
     Private-Port-Name: RMI_SERVER_PORT
     Private-Port:      44444
   - Private-IP-Name:   IP
     Private-Port-Name: RMI_REGISTRY_PORT
-    Private-Port:      1099
+    Private-Port:      16099
   - Private-IP-Name:   IP
     Private-Port-Name: ZOOKEEPER_PORT
-    Private-Port:      2181
+    Private-Port:      17181
 Install-Build-Required: false
