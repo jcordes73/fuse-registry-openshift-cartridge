@@ -87,6 +87,6 @@ Endpoints:
     Private-Port:      16099
   - Private-IP-Name:   IP
     Private-Port-Name: ZOOKEEPER_PORT
-    Private-Port:      2181
+    Private-Port:      17181
     Public-Port-Name:  ZOOKEEPER_PROXY_PORT
 Install-Build-Required: false

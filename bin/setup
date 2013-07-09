@@ -37,6 +37,7 @@ cp -r $OPENSHIFT_FUSE_REGISTRY_DIR/versions/$version/template/* $OPENSHIFT_FUSE_
 echo "felix.threading.timeout=0" >> container/etc/config.properties
 echo "admin=$password,admin" > container/etc/users.properties
 echo "zookeeper.password=$password" >> container/etc/system.properties
+echo "minimum.port=15000" >> container/etc/system.properties
 
 
 add_domain_env_var "ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}"
