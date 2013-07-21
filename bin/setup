@@ -38,9 +38,10 @@ echo "felix.threading.timeout=0" >> container/etc/config.properties
 echo "admin=$password,admin" > container/etc/users.properties
 echo "zookeeper.password=$password" >> container/etc/system.properties
 echo "zookeeper.server.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}" >> container/etc/system.properties
-echo "bind.address=${OPENSHIFT_GEAR_DNS}" >> container/etc/system.properties
+echo "bind.address=${OPENSHIFT_FUSE_REGISTRY_IP}" >> container/etc/system.properties
+echo "manualip=${OPENSHIFT_FUSE_REGISTRY_IP}" >> container/etc/system.properties
+echo "local.resolver=manualip" >> container/etc/system.properties
 echo "minimum.port=15000" >> container/etc/system.properties
-
 
 add_domain_env_var "ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}"
 add_domain_env_var "REGISTRY_PASSWORD=$password"
