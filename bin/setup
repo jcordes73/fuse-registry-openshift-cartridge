@@ -5,7 +5,7 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 function install_fabric() {
     mkdir -p $OPENSHIFT_FUSE_REGISTRY_DIR
     cd $OPENSHIFT_FUSE_REGISTRY_DIR
-    curl --write-out %{http_code} --silent --output fuse-fabric-7.3.0.redhat-20.zip http://repo.fusesource.com/nexus/content/groups/ea/org/fusesource/fabric/fuse-fabric/7.3.0.redhat-020/fuse-fabric-7.3.0.redhat-020.zip
+    curl --write-out %{http_code} --silent --output fuse-fabric-7.3.0.redhat-020.zip http://repo.fusesource.com/nexus/content/groups/ea/org/fusesource/fabric/fuse-fabric/7.3.0.redhat-020/fuse-fabric-7.3.0.redhat-020.zip
     unzip fuse-fabric-7.3.0.redhat-020.zip
     ln -s fuse-fabric-7.3.0.redhat-020 container
 }
