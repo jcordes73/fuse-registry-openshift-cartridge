@@ -79,6 +79,8 @@ Endpoints:
   - Private-IP-Name:   IP
     Private-Port-Name: SSH_PORT
     Private-Port:      23101
+    Public-Port-Name:  SSH_PROXY_PORT
+    Options:           { "ssl_to_gear": true }
   - Private-IP-Name:   IP
     Private-Port-Name: RMI_SERVER_PORT
     Private-Port:      44444
