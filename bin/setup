@@ -48,6 +48,7 @@ echo "org.ops4j.pax.web.listening.addresses=\${zk:\${karaf.name}/bindaddress}" >
 
 #Make sure that the default profile contains an openshift-friendly jetty.xml
 cp container/etc/jetty.xml container/fabric/import/fabric/configs/versions/1.0/profiles/default/
+echo "org.osgi.service.http.connection.port=${OPENSHIFT_FUSE_REGISTRY_HTTP_PROXY_PORT}" >> container/fabric/import/fabric/configs/versions/1.0/profiles/default/org.ops4j.pax.web.properties
 
 add_domain_env_var "ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}"
 add_domain_env_var "REGISTRY_PASSWORD=$password"
