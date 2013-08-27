@@ -46,7 +46,7 @@ echo "zookeeper.server.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}" >> contai
 echo "bind.address=${OPENSHIFT_FUSE_REGISTRY_IP}" >> container/etc/system.properties
 echo "publicip=${OPENSHIFT_GEAR_DNS}" >> container/etc/system.properties
 echo "local.resolver=publicip" >> container/etc/system.properties
-echo "zookeeper.server.connection.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}" >> container/etc/system.properties
+echo "zookeeper.server.connection.port=${ZOOKEEPER_PROXY_PORT}" >> container/etc/system.properties
 
 #Temporary fix, till added to fabric by default:
 echo "org.ops4j.pax.web.listening.addresses=\${zk:\${karaf.name}/bindaddress}" >> container/fabric/import/fabric/configs/versions/1.0/profiles/default/org.ops4j.pax.web.properties
