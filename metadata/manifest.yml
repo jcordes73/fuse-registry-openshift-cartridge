@@ -64,7 +64,7 @@ Publishes:
 Subscribes:
 Scaling:
   Min: 1
-  Max: 1
+  Max: 3
 Group-Overrides:
   - components:
     - web-proxy
@@ -83,8 +83,7 @@ Endpoints:
     Private-Port-Name: SSH_PORT
     Private-Port:      23101
     Public-Port-Name:  SSH_PROXY_PORT
-    Mappings:
-    - Options:           { "ssl_to_gear": true }
+    Options:           { "ssl_to_gear": true }
   - Private-IP-Name:   IP
     Private-Port-Name: RMI_SERVER_PORT
     Private-Port:      44444
@@ -95,6 +94,5 @@ Endpoints:
     Private-Port-Name: ZOOKEEPER_PORT
     Private-Port:      3128
     Public-Port-Name:  ZOOKEEPER_PROXY_PORT
-    Mappings:
-    - Options:           { "ssl_to_gear": true }
+    Options:           { "ssl_to_gear": true }
 Install-Build-Required: false
