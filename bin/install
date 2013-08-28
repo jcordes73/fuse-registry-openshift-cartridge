@@ -1,3 +1,5 @@
 #!/bin/bash -e
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
+echo "zookeeper.server.connection.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}" >> container/etc/system.properties
+add_domain_env_var "ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}"

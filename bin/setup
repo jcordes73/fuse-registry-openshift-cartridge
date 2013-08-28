@@ -46,7 +46,7 @@ echo "zookeeper.server.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}" >> contai
 echo "bind.address=${OPENSHIFT_FUSE_REGISTRY_IP}" >> container/etc/system.properties
 echo "publicip=${OPENSHIFT_GEAR_DNS}" >> container/etc/system.properties
 echo "local.resolver=publicip" >> container/etc/system.properties
-echo "zookeeper.server.connection.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}" >> container/etc/system.properties
+#echo "zookeeper.server.connection.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}" >> container/etc/system.properties
 
 #Temporary fix, till added to fabric by default:
 echo "org.ops4j.pax.web.listening.addresses=\${zk:\${karaf.name}/bindaddress}" >> container/fabric/import/fabric/configs/versions/1.0/profiles/default/org.ops4j.pax.web.properties
@@ -55,7 +55,7 @@ echo "org.ops4j.pax.web.listening.addresses=\${zk:\${karaf.name}/bindaddress}" >
 cp container/etc/jetty.xml container/fabric/import/fabric/configs/versions/1.0/profiles/default/
 echo "org.osgi.service.http.connection.port=80" >> container/fabric/import/fabric/configs/versions/1.0/profiles/default/org.ops4j.pax.web.properties
 
-add_domain_env_var "ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}"
+#add_domain_env_var "ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}"
 add_domain_env_var "REGISTRY_PASSWORD=$password"
 add_domain_env_var "MAVEN_UPLOAD_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_HTTP_PORT}/maven/upload/"
 
