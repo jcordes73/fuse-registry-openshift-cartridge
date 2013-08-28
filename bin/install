@@ -1,8 +1,16 @@
 #!/bin/bash -e
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
+# generate password and setup env vars
+echo 'Generating username and password'
+password=$(generate_password)
+echo "admin=$password,admin" > container/etc/users.properties
+echo "zookeeper.password=$password" >> container/etc/system.properties
 echo "zookeeper.server.connection.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}" >> container/etc/system.properties
+add_domain_env_var "REGISTRY_PASSWORD=$password"
 add_domain_env_var "ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}"
+
+echo "$password" > container/etc/passwd
 
 client_result ""
 client_result "Fuse Registry created successfully.  Please make note of these credentials:"

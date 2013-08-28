@@ -20,8 +20,8 @@ echo "$version" > "$OPENSHIFT_FUSE_REGISTRY_DIR/env/OPENSHIFT_FUSE_REGISTRY_VERS
 install_fabric
 
 # generate password and setup env vars
-echo 'Generating username and password'
-password=$(generate_password)
+#echo 'Generating username and password'
+#password=$(generate_password)
 
 # Copy the version specific files into diy directory
 shopt -s dotglob
@@ -40,9 +40,9 @@ echo "karaf.shutdown.port=${OPENSHIFT_FUSE_REGISTRY_SHUTDOWN_PORT}" >> container
 
 #Limit the maximum number of created threads
 echo "felix.threading.timeout=0" >> container/etc/config.properties
-echo "admin=$password,admin" > container/etc/users.properties
-echo "zookeeper.password=$password" >> container/etc/system.properties
-echo "zookeeper.server.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}" >> container/etc/system.properties
+#echo "admin=$password,admin" > container/etc/users.properties
+#echo "zookeeper.password=$password" >> container/etc/system.properties
+#echo "zookeeper.server.port=${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PORT}" >> container/etc/system.properties
 echo "bind.address=${OPENSHIFT_FUSE_REGISTRY_IP}" >> container/etc/system.properties
 echo "publicip=${OPENSHIFT_GEAR_DNS}" >> container/etc/system.properties
 echo "local.resolver=publicip" >> container/etc/system.properties
@@ -56,10 +56,10 @@ cp container/etc/jetty.xml container/fabric/import/fabric/configs/versions/1.0/p
 echo "org.osgi.service.http.connection.port=80" >> container/fabric/import/fabric/configs/versions/1.0/profiles/default/org.ops4j.pax.web.properties
 
 #add_domain_env_var "ZOOKEEPER_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_ZOOKEEPER_PROXY_PORT}"
-add_domain_env_var "REGISTRY_PASSWORD=$password"
+#add_domain_env_var "REGISTRY_PASSWORD=$password"
 add_domain_env_var "MAVEN_UPLOAD_URL=${OPENSHIFT_GEAR_DNS}:${OPENSHIFT_FUSE_REGISTRY_HTTP_PORT}/maven/upload/"
 
-echo "$password" > container/etc/passwd
+#echo "$password" > container/etc/passwd
 
 
 #client_result ""
